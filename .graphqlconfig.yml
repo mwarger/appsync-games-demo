@@ -4,7 +4,7 @@ projects:
     includes:
       - src/**/*.tsx
     excludes:
-      - ./amplify/**
+      - amplify/**
     extensions:
       amplify:
         codeGenTarget: typescript

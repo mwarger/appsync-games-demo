@@ -48,6 +48,7 @@ export const getGame = `query GetGame($id: ID!) {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -72,6 +73,7 @@ export const listGames = `query ListGames(
         items {
           id
           content
+          author
           rating
         }
         nextToken
@@ -85,6 +87,7 @@ export const getReview = `query GetReview($id: ID!) {
   getReview(id: $id) {
     id
     content
+    author
     rating
     game {
       id
@@ -102,6 +105,7 @@ export const listReviews = `query ListReviews(
     items {
       id
       content
+      author
       rating
       game {
         id

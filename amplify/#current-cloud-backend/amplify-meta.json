@@ -25,8 +25,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/testapp-20181007132638-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apigameapi"
 			},
-			"lastPushTimeStamp": "2018-10-07T20:16:23.236Z",
-			"lastPushDirHash": "rzKcKZFHnXXKXL0M5ax1VoTZNBk="
+			"lastPushTimeStamp": "2018-10-08T03:47:53.368Z",
+			"lastPushDirHash": "ZsLPYJ5QE7+TZ027uveIB3p8fj0="
 		}
 	}
 }

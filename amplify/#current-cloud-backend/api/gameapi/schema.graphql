@@ -12,6 +12,7 @@ type Game @model {
 type Review @model {
   id: ID!
   content: String
+  author: String
   rating: Int!
   game: Game! @connection(name: "GameReviews")
 }

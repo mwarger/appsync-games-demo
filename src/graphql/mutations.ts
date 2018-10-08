@@ -55,6 +55,7 @@ export const createGame = `mutation CreateGame($input: CreateGameInput!) {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -74,6 +75,7 @@ export const updateGame = `mutation UpdateGame($input: UpdateGameInput!) {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -93,6 +95,7 @@ export const deleteGame = `mutation DeleteGame($input: DeleteGameInput!) {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -104,6 +107,7 @@ export const createReview = `mutation CreateReview($input: CreateReviewInput!) {
   createReview(input: $input) {
     id
     content
+    author
     rating
     game {
       id
@@ -116,6 +120,7 @@ export const updateReview = `mutation UpdateReview($input: UpdateReviewInput!) {
   updateReview(input: $input) {
     id
     content
+    author
     rating
     game {
       id
@@ -128,6 +133,7 @@ export const deleteReview = `mutation DeleteReview($input: DeleteReviewInput!) {
   deleteReview(input: $input) {
     id
     content
+    author
     rating
     game {
       id

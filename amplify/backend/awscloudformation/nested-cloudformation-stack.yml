@@ -84,10 +84,10 @@
 				"TemplateURL": "https://s3.amazonaws.com/testapp-20181007132638-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "gameapi",
-					"schemaGraphql": "s3://testapp-20181007132638-deployment/amplify-appsync-files/schema.graphql.1538943092261",
+					"schemaGraphql": "s3://testapp-20181007132638-deployment/amplify-appsync-files/schema.graphql.1538970374348",
 					"ResolverBucket": "testapp-20181007132638-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1538943092261"
+					"DeploymentTimestamp": "1538970374348"
 				}
 			}
 		}

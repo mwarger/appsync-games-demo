@@ -55,6 +55,7 @@ export const onCreateGame = `subscription OnCreateGame {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -74,6 +75,7 @@ export const onUpdateGame = `subscription OnUpdateGame {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -93,6 +95,7 @@ export const onDeleteGame = `subscription OnDeleteGame {
       items {
         id
         content
+        author
         rating
       }
       nextToken
@@ -104,6 +107,7 @@ export const onCreateReview = `subscription OnCreateReview {
   onCreateReview {
     id
     content
+    author
     rating
     game {
       id
@@ -116,6 +120,7 @@ export const onUpdateReview = `subscription OnUpdateReview {
   onUpdateReview {
     id
     content
+    author
     rating
     game {
       id
@@ -128,6 +133,7 @@ export const onDeleteReview = `subscription OnDeleteReview {
   onDeleteReview {
     id
     content
+    author
     rating
     game {
       id
