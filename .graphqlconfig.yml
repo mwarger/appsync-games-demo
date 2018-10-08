@@ -1,0 +1,16 @@
+projects:
+  gameapi:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/**/*.tsx
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
+        graphQLApiId: uyf6tmzpkzdude7qcgaarff5vi
+      endpoints:
+        prod: >-
+          https://s65rmq4fcnf2lptxxku6xw2pqm.appsync-api.us-east-1.amazonaws.com/graphql

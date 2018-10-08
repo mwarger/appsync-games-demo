@@ -1,0 +1,179 @@
+enum PaymentType {
+  cash
+  creditcard
+}
+
+type PaymentRecord @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  amount: Float!
+  facility: Facility @connection
+  membership: UserMembership @connection(name: "MembershipPayment")
+  user: User @connection
+  type: PaymentType!
+  paymentDate: AWSDateTime!
+  paymentTransactionId: String
+}
+
+type FacilityMembershipOption @model {
+  id: ID!
+  price: Float!
+  timeUnit: TimeUnit!
+  timeAmount: Float!
+  facility: Facility! @connection(name: "MembershipOptions")
+}
+
+type Facility @model @searchable {
+  id: ID!
+  name: String
+  location: String
+  membershipOptions: [FacilityMembershipOption!]
+    @connection(name: "MembershipOptions")
+  waiverId: ID
+  waiverText: String
+  ezFacilityId: String
+  roster: [Roster!] @connection(name: "FacilityRosters")
+}
+
+type League @model {
+  ShowDetails: Boolean
+  ShowLeagueRoster: Boolean
+  ShowTeamRosters: Boolean
+  ShowRegistration: Boolean
+  ShowSchedule: Boolean
+  ShowStandings: Boolean
+  LeagueId: Int
+  FacilityId: Int
+  SportId: Int
+  EzFacilityGroupId: Int
+  TMSGroupId: Int
+  SportName: String
+  RegistrationLink: String
+  RegistrationLinkFormatted: String
+  StandardRegistrationUrl: String
+  AdvancedRegistrationUrl: String
+  Demographic: String
+  DemographicId: Int
+  DivisionId: Int
+  SeasonId: Int
+  SeasonName: String
+  Division: String
+  PlayerFee: Int
+  TeamFee: Int
+  Name: String
+  Status: String
+  StartDate: String
+  EndDate: String
+  MoreInfo: String
+  Fees: String
+  LeagueBracket: String
+  LeagueType: String
+  DefaultGameLength: Int
+  MaximumDefaults: Int
+  MaximumForfeits: Int
+  MinimumSportsmanshipRating: Int
+  ShowPlayerStats: Boolean
+  ShowOfficials: Boolean
+}
+
+enum LeagueStatusType {
+  InProgressUpcoming
+  All
+}
+
+type Roster
+  @model
+  @searchable
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["everyone"], queries: [get, list] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  facility: Facility! @connection(name: "FacilityRosters")
+  scheduleLink: AWSURL
+  scheduleContent: String
+  teamCaptain: User @connection
+  minAge: Int
+  members: [RosterPlayer!] @connection(name: "RosterMembers")
+}
+
+type RosterPlayer
+  @model(
+    queries: null
+    mutations: {
+      create: "createRosterPlayer"
+      update: null
+      delete: "deleteRosterPlayer"
+    }
+  ) {
+  id: ID!
+  roster: Roster @connection(name: "RosterMembers")
+  user: User @connection(name: "UserPlayer")
+}
+
+type ScheduleItem @model {
+  LeagueId: String
+  GameId: String
+  League: String
+  Home: String
+  Score: String
+  Away: String
+  TimeStatus: String
+  DateOfGame: String
+  Venue: String
+}
+
+enum TimeUnit {
+  days
+  months
+  years
+}
+
+type User
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["everyone"], queries: [get, list] }
+    ]
+  ) {
+  id: ID!
+  newUser: Boolean
+  memberships: [UserMembership!] @connection(name: "UserMemberships")
+  rosters: [RosterPlayer!] @connection(name: "UserPlayer")
+  birthdate: AWSDate
+  email: AWSEmail
+  given_name: String
+  family_name: String
+  phone_number: AWSPhone
+  username: ID!
+}
+
+type S3Object {
+  bucket: String
+  key: String
+  region: String
+}
+
+type UserMembership
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["SLX"] }
+      { allow: groups, groupsField: "group" }
+    ]
+  ) {
+  id: ID!
+  user: User @connection(name: "UserMemberships")
+  createdOnDate: AWSDateTime
+  renewedOnDate: AWSDateTime
+  expiresOnDate: AWSDateTime
+  payment: [PaymentRecord]! @connection(name: "MembershipPayment")
+  membershipPhotoFileName: String
+  membershipOption: FacilityMembershipOption
+    @connection(name: "MembershipOptions")
+  group: String
+}

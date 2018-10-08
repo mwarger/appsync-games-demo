@@ -1,0 +1,17 @@
+type Player @model {
+  id: ID!
+  name: String!
+  games: [Game] @connection(name: "PlayerGames")
+}
+type Game @model {
+  id: ID!
+  title: String!
+  player: Player! @connection(name: "PlayerGames")
+  reviews: [Review!] @connection(name: "GameReviews")
+}
+type Review @model {
+  id: ID!
+  content: String
+  rating: Int!
+  game: Game! @connection(name: "GameReviews")
+}

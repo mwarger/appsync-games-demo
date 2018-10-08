@@ -1,0 +1,197 @@
+type Player {
+  id: ID!
+  name: String!
+  games(filter: ModelGameFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelGameConnection
+}
+
+type Game {
+  id: ID!
+  title: String!
+  player: Player!
+  reviews(filter: ModelReviewFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReviewConnection
+}
+
+type Review {
+  id: ID!
+  content: String
+  rating: Int!
+  game: Game!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPlayerConnection {
+  items: [Player]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelPlayerFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  and: [ModelPlayerFilterInput]
+  or: [ModelPlayerFilterInput]
+  not: ModelPlayerFilterInput
+}
+
+type Query {
+  getPlayer(id: ID!): Player
+  listPlayers(filter: ModelPlayerFilterInput, limit: Int, nextToken: String): ModelPlayerConnection
+  getGame(id: ID!): Game
+  listGames(filter: ModelGameFilterInput, limit: Int, nextToken: String): ModelGameConnection
+  getReview(id: ID!): Review
+  listReviews(filter: ModelReviewFilterInput, limit: Int, nextToken: String): ModelReviewConnection
+}
+
+input CreatePlayerInput {
+  name: String!
+}
+
+input UpdatePlayerInput {
+  id: ID!
+  name: String
+}
+
+input DeletePlayerInput {
+  id: ID
+}
+
+type Mutation {
+  createPlayer(input: CreatePlayerInput!): Player
+  updatePlayer(input: UpdatePlayerInput!): Player
+  deletePlayer(input: DeletePlayerInput!): Player
+  createGame(input: CreateGameInput!): Game
+  updateGame(input: UpdateGameInput!): Game
+  deleteGame(input: DeleteGameInput!): Game
+  createReview(input: CreateReviewInput!): Review
+  updateReview(input: UpdateReviewInput!): Review
+  deleteReview(input: DeleteReviewInput!): Review
+}
+
+type Subscription {
+  onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"])
+  onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"])
+  onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"])
+  onCreateGame: Game @aws_subscribe(mutations: ["createGame"])
+  onUpdateGame: Game @aws_subscribe(mutations: ["updateGame"])
+  onDeleteGame: Game @aws_subscribe(mutations: ["deleteGame"])
+  onCreateReview: Review @aws_subscribe(mutations: ["createReview"])
+  onUpdateReview: Review @aws_subscribe(mutations: ["updateReview"])
+  onDeleteReview: Review @aws_subscribe(mutations: ["deleteReview"])
+}
+
+type ModelGameConnection {
+  items: [Game]
+  nextToken: String
+}
+
+input ModelGameFilterInput {
+  id: ModelIDFilterInput
+  title: ModelStringFilterInput
+  and: [ModelGameFilterInput]
+  or: [ModelGameFilterInput]
+  not: ModelGameFilterInput
+}
+
+input CreateGameInput {
+  title: String!
+  gamePlayerId: ID
+}
+
+input UpdateGameInput {
+  id: ID!
+  title: String
+  gamePlayerId: ID
+}
+
+input DeleteGameInput {
+  id: ID
+}
+
+type ModelReviewConnection {
+  items: [Review]
+  nextToken: String
+}
+
+input ModelReviewFilterInput {
+  id: ModelIDFilterInput
+  content: ModelStringFilterInput
+  rating: ModelIntFilterInput
+  and: [ModelReviewFilterInput]
+  or: [ModelReviewFilterInput]
+  not: ModelReviewFilterInput
+}
+
+input CreateReviewInput {
+  content: String
+  rating: Int!
+  reviewGameId: ID
+}
+
+input UpdateReviewInput {
+  id: ID!
+  content: String
+  rating: Int
+  reviewGameId: ID
+}
+
+input DeleteReviewInput {
+  id: ID
+}
