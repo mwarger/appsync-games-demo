@@ -1,5 +1,6 @@
 {
-  "name": "test-app",
+  "name": "appsync-games-demo",
+  "author": "Mat Warger",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

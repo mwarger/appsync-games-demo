@@ -16,8 +16,8 @@ import AuthComponent from "./containers/AuthComponent";
 export default () => (
   <Switch>
     <AppliedRoute path="/" exact component={Home} />
-    <AuthenticatedRoute path="/games/new" exact component={NewGame} />
-    <AuthenticatedRoute path="/games/:id" exact component={Games} />
+    <AppliedRoute path="/games/new" exact component={NewGame} />
+    <AppliedRoute path="/games/:id" exact component={Games} />
 
     {/* Finally, catch all unmatched routes */}
     <Route component={NotFound} />
