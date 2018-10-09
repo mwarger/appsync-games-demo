@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-        <Navbar fluid collapseOnSelect>
+        <Navbar fluid={true} collapseOnSelect={true}>
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Gamer Fi</Link>
